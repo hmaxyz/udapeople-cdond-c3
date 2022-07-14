@@ -15,9 +15,9 @@ commands:
           when: on_fail
           command: |
 
-            aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID} --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-${workflow_id}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${workflow_id}
+            #aws s3 rm s3://udapeople-509t2vc6v4qh --recursive
 
 jobs:
   build-frontend:
