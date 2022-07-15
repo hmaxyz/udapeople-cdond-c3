@@ -17,7 +17,7 @@ commands:
 
             aws cloudformation delete-stack --stack-name udapeople-backend-${workflow_id}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${workflow_id}
-            #aws s3 rm s3://udapeople-509t2vc6v4qh --recursive
+            aws s3 rm s3://udapeople-${workflow_id} --recursive
 
 jobs:
   build-frontend:
@@ -168,6 +168,25 @@ jobs:
       # Here's where you will add some code to rollback on failure  
       - destroy-environment: 
           workflow_id: ${CIRCLE_WORKFLOW_ID}   
+
+  configure-infrastructure:
+    docker:
+      # Docker image here that supports Ansible
+    steps:
+      # Checkout code from git
+      # Add ssh keys with fingerprint
+      # attach workspace
+      - run:
+          name: Install dependencies
+          command: |
+            # Your code here
+            exit 1
+      - run:
+          name: Configure server
+          command: |
+            # Your code here
+            exit 1
+      # Here's where you will add some code to rollback on failure    
       
 
 workflows:
