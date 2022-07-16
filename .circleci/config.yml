@@ -14,7 +14,9 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
+            echo "destroying stack udapeople-backend-${workflow_id}"
             aws cloudformation delete-stack --stack-name udapeople-backend-${workflow_id}
+            echo "destroying stack udapeople-frontend-${workflow_id}"
             aws cloudformation delete-stack --stack-name udapeople-frontend-${workflow_id}
             echo "destroying bucket udapeople-${workflow_id}"
             aws s3 rm s3://udapeople-${workflow_id} --recursive
@@ -304,6 +306,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            mkdir .circleci/ansible/roles/deploy/files
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
