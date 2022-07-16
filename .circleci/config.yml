@@ -306,7 +306,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            mkdir .circleci/ansible/roles/deploy/files
+            mkdir -p ~/project/.circleci/ansible/roles/deploy/files 
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
