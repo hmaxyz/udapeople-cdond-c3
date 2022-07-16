@@ -329,7 +329,6 @@ jobs:
           name: Install dependencies
           command: |
             yum -y install tar gzip
-            apk add --update curl nodejs npm
       - run:
           name: Backend smoke test.
           command: |
