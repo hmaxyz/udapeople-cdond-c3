@@ -1,3 +1,8 @@
+- name: "upgrade packages."
+  become: true
+  apt:
+    upgrade: "yes"
+    
 - name: "install python for Ansible."
   become: true
   apt:
