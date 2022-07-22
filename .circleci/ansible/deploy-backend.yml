@@ -10,7 +10,7 @@
     - ansible_stdout_callback: yaml
 
   pre_tasks:
-    - name: "Set Env vars"
+    - name: "Set Environment vars"
       shell: |
         cd app
         touch .env
