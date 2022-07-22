@@ -12,6 +12,7 @@
   pre_tasks:
     - name: "Set Environment vars"
       shell: |
+        mkdir app
         cd app
         touch .env
         echo NODE_ENV=production >> .env
