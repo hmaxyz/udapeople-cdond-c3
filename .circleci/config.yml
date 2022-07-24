@@ -266,30 +266,20 @@ jobs:
             yum -y install nodejs
             yum -y install tar gzip
             
-      - attach_workspace:
-          at: ~/tmp
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances \
-            --filters Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7} \
-            --query "Reservations[*].Instances[*].PublicIpAddress" \
-            --output text)
+            BACKEND_IP=$(curl https://kvdb.io/RSXGKMfzHxp3zMMi63Aczo/IP)
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "API_URL = ${API_URL}"
-            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
-            cat frontend/.env
+            echo "${API_URL}"
+            cd frontend
+            npm install
+            npm run build
+            ls -alh
       - run:
           name: Deploy frontend objects
           command: |
-            cd frontend
-            cat .env
-            npm install
-            npm run build
-            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-
-            echo "copying files to s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            aws s3 cp ./frontend/dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}/ --recursive
       # Here's where you will add some code to rollback on failure   
       - destroy-environment: 
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -397,7 +387,7 @@ jobs:
           name: Remove old stacks and files
           command: |
             cat OldWorkflowID.txt
-            
+
             OldWorkflowID=$(cat OldWorkflowID.txt)
 
              echo OldWorkflowID: "${OldWorkflowID}"
