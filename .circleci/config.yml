@@ -18,7 +18,9 @@ commands:
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             echo "destroying stack udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+            
             echo "destroying bucket udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+
             aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
   revert-migrations:
@@ -226,7 +228,7 @@ jobs:
           command: |
             echo PWD $(pwd)
             ansible-playbook -i inventory.txt configure-server.yml
-            
+
       # Here's where you will add some code to rollback on failure
       - destroy-environment: 
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
