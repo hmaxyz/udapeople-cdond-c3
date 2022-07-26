@@ -16,8 +16,9 @@ commands:
           command: |
             echo "destroying stack udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-            echo "destroying stack udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
             
+            echo "destroying stack udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
 
             echo "destroying bucket udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
